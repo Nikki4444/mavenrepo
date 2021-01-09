@@ -1,0 +1,22 @@
+pipeline{
+agent { label 'piggy' }
+    stages{
+     stage("checkout"){
+                        steps{ 
+                         checkout([$class: 'GitSCM', 
+                         branches: [[name: '*/feat01']], 
+    userRemoteConfigs: [[credentialsId: '0d4c1cd3-b60b-468f-917b-7619ebe96fac', url:'https://github.com/Nikki4444/mavenrepo.git']]
+])
+
+
+              }
+         }  // close steps for stage 1
+
+                        stage("Build"){
+                                               steps{
+                                        sh '/opt/maven/bin/mvn validate'
+              }
+         }   // close steps for stage 2
+
+    }  //close for stages
+}  // close for pipeline
